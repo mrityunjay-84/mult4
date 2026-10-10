@@ -1,0 +1,7 @@
+# Simulation outputs (regenerate with iverilog / vvp)
+sim
+gls
+*.vcd
+
+# LibreLane run folders are very large; only final files are copied to pnr/
+pnr/runs/

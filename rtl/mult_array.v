@@ -8,7 +8,7 @@ module mult_array (
 );
 
     reg  [3:0] a_r, b_r;   // input registers
-    wire [7:0] prod;       // result from the array (built in Step 4b)
+    wire [7:0] prod;       // result from the array
 
     // All 16 flip-flops: capture on the rising clock edge, clear on reset
     always @(posedge clk or negedge rst_n) begin
@@ -23,7 +23,7 @@ module mult_array (
         end
     end
 
-    // ---- Array goes here (Step 4b) ----
+    // ================= Array: 16 AND gates + 12 full adders =================
     // Partial products: ppi[j] = a_r[j] AND b_r[i]  (16 AND gates)
     wire [3:0] pp0, pp1, pp2, pp3;
     assign pp0 = a_r & {4{b_r[0]}};
@@ -71,7 +71,7 @@ module mult_array (
     full_adder fa3_2 (.a(pp3[2]), .b(r2[2]), .cin(c3[2]), .sum(s3[2]), .cout(c3[3]));
     full_adder fa3_3 (.a(pp3[3]), .b(r2[3]), .cin(c3[3]), .sum(s3[3]), .cout(c3[4]));
 
-    // no need of r3; lol
+    // Row 3 outputs go straight to the product (no r3 needed)
 
     // Product: p[7:4] = {c3[4], s3[3:1]}, p[3]=s3[0], p[2]=s2[0], p[1]=s1[0], p[0]=pp0[0]
     assign prod = {c3[4], s3[3:0], s2[0], s1[0], pp0[0]};

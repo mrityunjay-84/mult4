@@ -9,7 +9,7 @@ place and route on the SkyWater SKY130 process.
 | Name | Roll number |
 |---|---|
 | Mrityunjay Badoni | 2026203019 |
-| <Teammate name> | <Teammate roll number> |
+| Shreekara Aithala | 2026203001 |
 
 Hand-worked example uses Mrityunjay Badoni's roll number (last digit 9): A = 9 + 5 = 14, B = 7, P = 98.
 

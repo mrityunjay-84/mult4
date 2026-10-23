@@ -236,4 +236,22 @@ Critical path: b_r[0] → p[6]
 
 ## 6. Part D: Physical design
 
+Run from the `pnr` folder:
+
+```bash
+cd /foss/designs/mult4/pnr
+librelane config.json
+```
+
+| Run | CLOCK_PERIOD (ns) | Worst setup slack (ns) | Result |
+|---|---|---|---|
+| 1 | 3.5 | -2.118 | Setup violations in ss_100C_1v60 corners |
+| 2 | 4.0 | -1.594 | Setup violations in ss_100C_1v60 corners |
+| 3 | 4.5 | -1.123 | Setup violations in ss_100C_1v60 corners |
+| 4 | 5.0 | -0.622 | Setup violations in ss_100C_1v60 corners |
+| 5 | 5.5 | -0.122 | Setup violations in ss_100C_1v60 corners |
+| 6 | 6.0 | -0.166 | Setup violations in ss_100C_1v60 corners (optimiser stopped early, circuit slower than run 5) |
+| 7 | 6.5 | -0.035 | Setup violations in max_ss_100C_1v60 only |
+| 8 | 7.0 | 0.465 | Passed: 0 DRC, 0 LVS, all corners meet setup |
+
 (to be added)

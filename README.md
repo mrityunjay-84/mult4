@@ -214,7 +214,25 @@ Result: `PASS: 256 vectors checked, 0 errors`
 
 ## 5. Part C: Static timing analysis
 
-(to be added)
+## Part C — Static timing analysis
+
+Run from the repository root:
+
+```bash
+cd /foss/designs/mult4
+sta sta/sta.tcl        # with set T 10.0 in sta.tcl → worst slack 7.396 ns
+sta sta/sta.tcl        # with set T 2.60 in sta.tcl → worst slack -0.004 ns
+```
+
+Identify the critical path start and end registers in the netlist:
+
+```bash
+grep -A 5 "_106_ (" synth/mult_array_netlist.v
+grep -A 5 "_100_ (" synth/mult_array_netlist.v
+```
+
+T_min = 10 − 7.396 = 2.604 ns, F_max = 1000 / 2.604 = 384.0 MHz
+Critical path: b_r[0] → p[6]
 
 ## 6. Part D: Physical design
 

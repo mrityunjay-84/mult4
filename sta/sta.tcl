@@ -5,7 +5,7 @@
 set lib $::env(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 
 # Clock period in ns (change this value for each run)
-set T 10.0
+set T 2.60
 
 # 1. Read the cell timing library
 read_liberty $lib

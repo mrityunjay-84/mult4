@@ -201,6 +201,17 @@ yosys -c synth/synth.tcl
 
 Outputs: `synth/mult_array_netlist.v`, `synth/mult_array_stat.rpt`
 
+Gate-level simulation of the synthesized netlist:
+
+```bash
+CELLS=$PDK_ROOT/sky130A/libs.ref/sky130_fd_sc_hd/verilog
+iverilog -g2012 -DFUNCTIONAL -DUNIT_DELAY=#1 -o gls \
+  tb/tb_mult.v $CELLS/primitives.v $CELLS/sky130_fd_sc_hd.v synth/mult_array_netlist.v
+vvp gls
+```
+
+Result: `PASS: 256 vectors checked, 0 errors`
+
 ## 5. Part C: Static timing analysis
 
 (to be added)

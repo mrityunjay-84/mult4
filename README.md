@@ -296,3 +296,10 @@ Count each cell type in the final layout (to identify added buf, fill, tap and d
 ```bash
 grep -o 'sky130_fd_sc_hd__[a-z0-9_]*' $RUN/final/def/mult_array.def | sort | uniq -c | sort -rn
 ```
+
+View the final layout (in the browser desktop terminal):
+
+```bash
+cd /foss/designs/mult4/pnr
+klayout -l $PDK_ROOT/sky130A/libs.tech/klayout/tech/sky130A.lyp mult_array.gds
+```

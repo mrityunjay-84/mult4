@@ -234,13 +234,36 @@ grep -A 5 "_100_ (" synth/mult_array_netlist.v
 T_min = 10 − 7.396 = 2.604 ns, F_max = 1000 / 2.604 = 384.0 MHz
 Critical path: b_r[0] → p[6]
 
-## 6. Part D: Physical design
+## Part D — Physical design
 
-Run from the `pnr` folder:
+Run from the `pnr` folder. `CLOCK_PERIOD` in `config.json` was edited before each run.
 
 ```bash
 cd /foss/designs/mult4/pnr
 librelane config.json
+```
+
+After run 1, check slack per corner and DRC/LVS counts:
+
+```bash
+cd /foss/designs/mult4/pnr/runs/RUN_2026-10-23_16-44-39/final
+grep '"timing__setup__ws' metrics.json
+grep -i -E '"[a-z_]*(drc|lvs)[a-z_]*__' metrics.json
+```
+
+After each later run (newest run folder selected automatically):
+
+```bash
+cd /foss/designs/mult4/pnr
+grep '"timing__setup__ws' runs/$(ls -t runs | head -1)/final/metrics.json
+grep -i -E '"[a-z_]*(drc|lvs)[a-z_]*__' runs/$(ls -t runs | head -1)/final/metrics.json
+```
+
+Diagnostic check during run 6 (confirm the run really used the new clock period):
+
+```bash
+cat config.json
+grep -o '"CLOCK_PERIOD": *[0-9.]*' runs/$(ls -t runs | head -1)/resolved.json
 ```
 
 | Run | CLOCK_PERIOD (ns) | Worst setup slack (ns) | Result |
@@ -254,4 +277,22 @@ librelane config.json
 | 7 | 6.5 | -0.035 | Setup violations in max_ss_100C_1v60 only |
 | 8 | 7.0 | 0.465 | Passed: 0 DRC, 0 LVS, all corners meet setup |
 
-(to be added)
+Copy the final results into `pnr/`:
+
+```bash
+RUN=runs/RUN_2026-10-23_17-28-26
+cp $RUN/final/metrics.json .
+cp $RUN/final/gds/mult_array.gds .
+```
+
+Extract cell count, area and wirelength:
+
+```bash
+grep -E 'instance__count|core__area|die__area|wirelength' metrics.json
+```
+
+Count each cell type in the final layout (to identify added buf, fill, tap and decap cells):
+
+```bash
+grep -o 'sky130_fd_sc_hd__[a-z0-9_]*' $RUN/final/def/mult_array.def | sort | uniq -c | sort -rn
+```

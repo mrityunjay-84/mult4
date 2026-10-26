@@ -190,7 +190,7 @@ product p = 98 captured at the 4655 ns clock edge (latency 2 clock cycles = 20 n
 
 ---
 
-## Part B — Synthesis
+## 4. Part B: Logic synthesis
 
 Run from the repository root:
 
@@ -214,8 +214,6 @@ Result: `PASS: 256 vectors checked, 0 errors`
 
 ## 5. Part C: Static timing analysis
 
-## Part C — Static timing analysis
-
 Run from the repository root:
 
 ```bash
@@ -234,7 +232,7 @@ grep -A 5 "_100_ (" synth/mult_array_netlist.v
 T_min = 10 − 7.396 = 2.604 ns, F_max = 1000 / 2.604 = 384.0 MHz
 Critical path: b_r[0] → p[6]
 
-## Part D — Physical design
+## 6. Part D: Physical design
 
 Run from the `pnr` folder. `CLOCK_PERIOD` in `config.json` was edited before each run.
 
